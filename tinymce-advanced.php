@@ -3,13 +3,13 @@
 Plugin Name: TinyMCE Advanced
 Plugin URI: http://www.laptoptips.ca/projects/tinymce-advanced/
 Description: Enables advanced features and plugins in TinyMCE, the visual editor in WordPress.
-Version: 3.5.8
+Version: 3.5.9
 Author: Andrew Ozz
 Author URI: http://www.laptoptips.ca/
 
 Some code and ideas from WordPress (http://wordpress.org/). The options page for this plugin uses jQuery (http://jquery.com/).
 
-Released under the GPL v.2, http://www.gnu.org/copyleft/gpl.html
+Released under the GPL v.2, http://www.gnu.org/licenses/gpl-2.0.html
 
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,9 +19,7 @@ Released under the GPL v.2, http://www.gnu.org/copyleft/gpl.html
 
 
 if ( ! function_exists('tadv_paths') ) {
-	/*
-	If using domain mapping or plugins that change the path dinamically, edit these to set the proper path and URL.
-	*/
+	// If using domain mapping or plugins that change the path dinamically, edit these to set the proper path and URL.
 	function tadv_paths() {
 		if ( !defined('TADV_URL') )
 			define('TADV_URL', plugin_dir_url(__FILE__));
@@ -52,7 +50,7 @@ if ( ! function_exists('tadv_add_scripts') ) {
 	function tadv_add_scripts($page) {
 		if ( 'settings_page_tinymce-advanced' == $page ) {
 			wp_enqueue_script( 'tadv-js', TADV_URL . 'js/tadv.js', array('jquery-ui-sortable'), '3.4.2', true );
-			wp_enqueue_style( 'tadv-css', TADV_URL . 'css/tadv-styles.css', array(), '3.4.2' );
+			wp_enqueue_style( 'tadv-css', TADV_URL . 'css/tadv-styles.css', array(), '3.5.9' );
 		}
 	}
 }
@@ -89,19 +87,7 @@ if ( ! function_exists('tdav_get_file') ) {
 		if ( ! $path || ! @is_file($path) )
 			return '';
 	
-		if ( function_exists('file_get_contents') )
-			return @file_get_contents($path);
-	
-		$content = '';
-		$fp = @fopen($path, 'r');
-		if ( ! $fp )
-			return '';
-	
-		while ( ! feof($fp) )
-			$content .= fgets($fp);
-	
-		fclose($fp);
-		return $content;
+		return @file_get_contents($path);
 	}
 }
 
